@@ -57,10 +57,18 @@ class TestAutojump(unittest.TestCase):
         self.db.add('/1', 100)
         self.db.decrease('/a', 42)
         self.assertTrue(self.db.get_weight('/a') < 100)
+
+    def test_db_increase_decrease_symmetric(self):
         self.db.add('/2', 100)
         self.db.add('/2', 42)
         self.db.decrease('/2', 42)
         self.assertEquals(self.db.get_weight('/2'), 100)
+
+    def test_db_decrease_remove(self):
+        self.db.add('/1', 100)
+        self.db.decrease('/1', 101)
+        self.assertEquals(self.db.get_weight('/1'), 0)
+        self.assertFalse('/1' in self.db.data)
 
     def test_db_get_weight(self):
         self.assertEqual(self.db.get_weight('/'), 0)

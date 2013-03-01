@@ -89,8 +89,7 @@ class Database:
         if path not in self.data:
             self.data[path] = increment
         else:
-            import math
-            self.data[path] = math.sqrt((self.data[path] ** 2) + (increment ** 2))
+            self.data[path] = ((self.data[path] ** 2) + (increment ** 2)) ** 0.5
         self.save()
 
     def decrease(self, path, increment=10):
@@ -98,8 +97,11 @@ class Database:
         Decrease wheight of existing path. Unknown ones are ignored.
         """
         if path in self.data:
-            import math
-            self.data[path] = math.sqrt((self.data[path] ** 2) - (increment ** 2))
+            weight = self.data[path]
+            if weight <= increment:
+                del(self.data[path])
+            else:
+                self.data[path] = ((weight ** 2) - (increment ** 2)) ** 0.5
             self.save()
 
     def decay(self):
