@@ -4,10 +4,10 @@ TAGNAME = release-v$(VERSION)
 .PHONY: docs install uninstall tar test
 
 install:
-	install.sh
+	./install.sh
 
 uninstall:
-	uninstall.sh
+	./uninstall.sh
 
 docs:
 	pandoc -s -w man docs/manpage_header.md docs/header.md docs/body.md -o docs/autojump.1
